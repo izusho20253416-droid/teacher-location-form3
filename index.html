@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>先生の居場所 - 送信フォーム</title>
+</head>
+<body>
+  <h1>先生の居場所入力（テスト）</h1>
+
+  <!-- ここをあなたのGASの web app URL に置き換える -->
+  <form id="frm" action="https://script.google.com/macros/s/AKfycbzhs3zA_PhDvdW41YiTgwSMrBwKkif7XSUSY0ce20bSXKAiD8JcCcMN1HEyH_gKSmy0/exec" method="post" target="hidden_iframe">
+    <label>先生の名前：
+      <select name="name">
+        <option>山田太郎</option>
+        <option>田中花子</option>
+        <!-- 必要な先生名を追加 -->
+      </select>
+    </label>
+    <br><br>
+
+    <label>居場所：
+      <select name="location">
+        <option>職員室</option>
+        <option>教室</option>
+        <option>体育館</option>
+        <option>図書室</option>
+      </select>
+    </label>
+    <br><br>
+
+    <label>コメント（任意）：
+      <input type="text" name="comment" placeholder="例：会議中">
+    </label>
+    <br><br>
+
+    <button type="submit">送信</button>
+  </form>
+
+  <!-- 返信を受け取らずにページ遷移させたくない場合は hidden iframe ターゲットを使う -->
+  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+  <script>
+    // iframe の onload を使って「送信完了」らしき挙動を出す（クロスオリジンなので iframe の中身は読めません）
+    document.getElementById('hidden_iframe').onload = function(){
+      // 注意: 最初のロードでも呼ばれることがあるのでワンタイム処理にするのが安全
+      if (window._sent) return;
+      window._sent = true;
+      alert('送信が完了しました。スプレッドシートを確認してください。');
+    };
+  </script>
+</body>
+</html>
